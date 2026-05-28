@@ -1,0 +1,34 @@
+template:
+  - sensor:
+      - name: "Battery Energy Remaining"
+        unique_id: battery_energy_remaining_example
+        unit_of_measurement: "kWh"
+        state: >-
+          {% set capacity_kwh = states('input_number.battery_capacity_kwh') | float(0) %}
+          {% set soc = states('sensor.battery_ks_bms_state_of_charge') | float(0) %}
+          {{ (capacity_kwh * soc / 100) | round(1) }}
+
+      - name: "Battery Usable Energy Remaining"
+        unique_id: battery_usable_energy_remaining_example
+        unit_of_measurement: "kWh"
+        state: >-
+          {% set capacity_kwh = states('input_number.battery_capacity_kwh') | float(0) %}
+          {% set soc = states('sensor.battery_ks_bms_state_of_charge') | float(0) %}
+          {% set reserve = states('input_number.battery_reserve_percent') | float(0) %}
+          {% set usable_soc = [soc - reserve, 0] | max %}
+          {{ (capacity_kwh * usable_soc / 100) | round(1) }}
+
+      - name: "Battery Estimated Time Remaining"
+        unique_id: battery_estimated_time_remaining_example
+        state: >-
+          {% set watts = states('sensor.house_battery_power') | float(0) %}
+          {% set usable_kwh = states('sensor.battery_usable_energy_remaining') | float(0) %}
+          {% if watts > 50 %}
+            {{ ((usable_kwh * 1000) / watts) | round(1) }}
+          {% else %}
+            unknown
+          {% endif %}
+        unit_of_measurement: "h"
+
+# This file is intentionally generic.
+# Replace entity IDs with your own HA entities and helpers.

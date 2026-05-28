@@ -1,0 +1,42 @@
+esphome:
+  name: battery-ble-scanner
+  friendly_name: Battery BLE Scanner
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+logger:
+  level: DEBUG
+
+api:
+
+ota:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+captive_portal:
+
+esp32_ble_tracker:
+  scan_parameters:
+    active: true
+
+# Optional: a simple way to confirm the node is alive
+sensor:
+  - platform: wifi_signal
+    name: Battery BLE Scanner WiFi Signal
+    update_interval: 60s
+
+text_sensor:
+  - platform: version
+    name: Battery BLE Scanner ESPHome Version
+
+# What to do:
+# 1. Flash this to an ESP32 placed near the battery.
+# 2. Open logs.
+# 3. Look for the real BMS advertisement, not just the touchscreen/display radio.
+# 4. Identify the device by advertised name plus service UUID FF00.
+# 5. Use the discovered MAC in ks-bms-example.yaml.
