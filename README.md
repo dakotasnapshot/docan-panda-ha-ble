@@ -1,6 +1,6 @@
 # Docan Panda KS BMS → ESPHome → Home Assistant
 
-A sanitized public write-up of integrating a **Docan Panda 51.2V battery with a KS-style BMS** into **Home Assistant** using an **ESP32 Bluetooth proxy** and the excellent [`syssi/esphome-ks-bms`](https://github.com/syssi/esphome-ks-bms) component.
+A write-up of integrating a **Docan Panda 51.2V battery with a KS-style BMS** into **Home Assistant** using an **ESP32 Bluetooth proxy** and the excellent [`syssi/esphome-ks-bms`](https://github.com/syssi/esphome-ks-bms) component.
 
 This repo focuses on the part that actually burned time: **finding the real BLE device exposed by the BMS** and getting a stable ESPHome/Home Assistant integration working.
 
